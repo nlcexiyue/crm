@@ -29,7 +29,7 @@ public class CusDevPlanService extends BaseService<CusDevPlan,Integer> {
         map.put("code",0);
         map.put("msg","");
         map.put("count",pageInfo.getTotal());
-        map.put("data",pageInfo.getList());
+        map.put("data",pageInfo);
         return  map;
     }
 
