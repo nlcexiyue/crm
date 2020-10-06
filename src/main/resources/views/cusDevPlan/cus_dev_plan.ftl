@@ -19,12 +19,12 @@
                 </div>
                 <div class="layui-input-inline">
                     <select name="devResult" id="devResult">
-                        <option value="">营销机会</option>
+                        <option value="-1">营销机会</option>
                     </select>
                 </div>
                 <div class="layui-input-inline">
-                    <a class="layui-btn search_btn" data-type="reload" lay-filter="search"><i
-                            class="layui-icon">&#xe615;</i> 搜索</a>
+                    <button class="layui-btn search_btn" id="search" data-type="reload"><i
+                            class="layui-icon">&#xe615;</i> 搜索</button>
                 </div>
 
 

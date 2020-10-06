@@ -2,9 +2,10 @@ layui.use(['form','table','jquery'],function () {
     var form = layui.form,
         table = layui.table,
         $ = layui.jquery;
-    table.render({
+    var render = table.render({
         elem:'#saleChanceList',
         height:690,
+        id:'tableOne',
         method:'post',
         url:'/cus_dev_plan/list',
         page:true,
@@ -35,12 +36,12 @@ layui.use(['form','table','jquery'],function () {
         response:{
             statusCode:0
         }
-    })
+    });
 
     $.ajax({
         type:'get',
         url:ctx+'/sale_chance/list',
-        data:{},
+        data:{flag:1},
         dataType:'json',
         success:function (msg) {
             var code = msg.code;
@@ -57,12 +58,20 @@ layui.use(['form','table','jquery'],function () {
         }
     })
 
-    form.on('submit(search)',function (data) {
-
-
-
-
+    $('#search').on('click',function () {
+        var val = $('#devResult option:selected').val();
+        console.log(val)
+        table.reload('tableOne',{
+            method:'get',
+            where:{
+                sid:val
+            },
+            url:'/cus_dev_plan/listBySearch',
+        });
+        return false;
     })
+
+
 
 
 
