@@ -19,16 +19,12 @@
                 </div>
                 <div class="layui-input-inline">
                     <select name="devResult" id="devResult">
-                        <option value="">开发状态</option>
-                        <option value="0">未开发</option>
-                        <option value="1">开发中</option>
-                        <option value="2">开发成功</option>
-                        <option value="3">开发失败</option>
+                        <option value="-1">营销机会</option>
                     </select>
                 </div>
                 <div class="layui-input-inline">
-                    <a class="layui-btn search_btn" data-type="reload"><i
-                            class="layui-icon">&#xe615;</i> 搜索</a>
+                    <button class="layui-btn search_btn" id="search" data-type="reload"><i
+                            class="layui-icon">&#xe615;</i> 搜索</button>
                 </div>
 
 
@@ -53,42 +49,8 @@
 </form>
 <script type="text/javascript" src="${ctx}/js/cusDevPlan/cus.dev.plan.js"></script>
 <script>
-    layui.use(['form','table'],function () {
-        var form = layui.form,
-                table = layui.table;
-        table.render({
-            elem:'#saleChanceList',
-            height:312,
-            url:'/cus_dev_plan/list',
-            page:true,
-            where:{}
-            cols:[[
-                {field:'id',title:'ID',width:80,fixed:'left'},
-                {field:'saleChanceId',title:'订单机会',width:200},
-                {field:'planItem',title:'计划标题',width:200},
-                {field:'planDate',title:'计划时间',width:200},
-                {field:'exeAffect',title:'计划影响',width:200},
-                {field:'createDate',title:'创建时间',width:200},
-                {field:'updateDate',title:'更新时间',width:200},
-                {field:'isValid',title:'有效状态',width:200}]],
-            parseData:function (data) {
-                return {
-                    'data':data.data,
-                    'code':data.code
-                }
-            },
-            response:{
-                statusCode:0
-            }
 
 
 
-
-        })
-
-
-
-    })
-</script>
 </body>
 </html>

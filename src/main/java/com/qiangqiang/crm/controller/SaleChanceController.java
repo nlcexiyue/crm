@@ -49,6 +49,12 @@ public class SaleChanceController extends BaseController {
 
 
 
+
+
+
+
+
+
     @RequestMapping("save")
     @ResponseBody
     public ResultInfo saveSaleChance(HttpServletRequest request, SaleChance saleChance){

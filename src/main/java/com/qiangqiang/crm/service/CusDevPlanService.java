@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 
 import com.github.pagehelper.PageInfo;
 import com.qiangqiang.base.BaseService;
+import com.qiangqiang.crm.dao.CusDevPlanMapper;
 import com.qiangqiang.crm.dao.SaleChanceMapper;
 import com.qiangqiang.crm.query.CusDevPlanQuery;
 import com.qiangqiang.crm.utils.AssertUtil;
@@ -22,6 +23,10 @@ public class CusDevPlanService extends BaseService<CusDevPlan,Integer> {
 
     @Autowired
     private SaleChanceMapper saleChanceMapper;
+
+    @Autowired
+    private CusDevPlanMapper cusDevPlanMapper;
+
     public Map<String,Object> queryCusDevPlansByParams(CusDevPlanQuery cusDevPlanQuery){
         Map<String,Object> map=new HashMap<String,Object>();
         PageHelper.startPage(cusDevPlanQuery.getPage(),cusDevPlanQuery.getLimit());
@@ -29,10 +34,21 @@ public class CusDevPlanService extends BaseService<CusDevPlan,Integer> {
         map.put("code",0);
         map.put("msg","");
         map.put("count",pageInfo.getTotal());
-        map.put("data",pageInfo.getList());
+        map.put("data",pageInfo);
         return  map;
     }
 
+
+    public Map<String,Object> queryCusDevPlansBySearch(CusDevPlanQuery cusDevPlanQuery){
+        Map<String,Object> map=new HashMap<String,Object>();
+        PageHelper.startPage(cusDevPlanQuery.getPage(),cusDevPlanQuery.getLimit());
+        PageInfo<CusDevPlan> pageInfo=new PageInfo<CusDevPlan>(cusDevPlanMapper.selectBySearch(cusDevPlanQuery));
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",pageInfo.getTotal());
+        map.put("data",pageInfo);
+        return  map;
+    }
 
 
     public void saveCusDevPlan(CusDevPlan cusDevPlan){
