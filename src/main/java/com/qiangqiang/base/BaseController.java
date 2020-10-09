@@ -11,7 +11,7 @@ public class BaseController {
     @ModelAttribute
     public void preHandler(HttpServletRequest request){
         request.setAttribute("ctx", request.getContextPath());
-        System.out.println("项目路径1" + request.getContextPath());
+        System.out.println("项目路径2" + request.getContextPath());
     }
 
 
