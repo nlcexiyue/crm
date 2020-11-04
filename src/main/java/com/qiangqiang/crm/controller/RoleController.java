@@ -64,6 +64,8 @@ public class RoleController extends BaseController {
         return "role/add_update";
     }
 
+
+
     @RequestMapping("delete")
     @ResponseBody
     public ResultInfo deleteRole(Integer id){

@@ -1,6 +1,8 @@
-layui.use(['form', 'table'], function () {
+layui.use(['form', 'table','layer','jquery'], function () {
     var form = layui.form,
-        table = layui.table;
+        table = layui.table,
+        layer = layui.layer,
+        $ = layui.jquery;
 
     table.render({
         elem: '#saleChanceList',
@@ -71,7 +73,10 @@ layui.use(['form', 'table'], function () {
         console.log(checkStatus)
         switch(obj.event){
             case 'add':
-                window.location.href = ctx + '/sale_chance/addOrUpdateSaleChancePage';
+                openAdd();
+
+
+                // window.location.href = ctx + '/sale_chance/addOrUpdateSaleChancePage';
                 break;
             case 'del':
                 var data = checkStatus.data;
@@ -108,4 +113,134 @@ layui.use(['form', 'table'], function () {
 
 
 
+    function openAdd() {
+        layer.open({
+            type: 1,
+            area:['80%','80%'],
+            content: '<form class="layui-form" style="width:80%;" id="window">\n' +
+                '    <input type="hidden" name="id"  value="">\n' +
+                '    <input type="hidden" name="man"  value="">\n' +
+                '    <div class="layui-form-item layui-row layui-col-xs12">\n' +
+                '        <label class="layui-form-label">客户名称</label>\n' +
+                '        <div class="layui-input-block">\n' +
+                '            <input type="text" class="layui-input"\n' +
+                '                   lay-verify="required" name="customerName" id="customerName"  value=""  placeholder="请输入客户名称">\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '    <div class="layui-form-item layui-row layui-col-xs12">\n' +
+                '        <label class="layui-form-label">机会来源</label>\n' +
+                '        <div class="layui-input-block">\n' +
+                '            <input type="text" class="layui-input"\n' +
+                '                   name="chanceSource" id="chanceSource" placeholder="请输入机会来源" value="">\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '    <div class="layui-form-item layui-row layui-col-xs12">\n' +
+                '        <label class="layui-form-label">联系人</label>\n' +
+                '        <div class="layui-input-block">\n' +
+                '            <input type="text" class="layui-input"\n' +
+                '                   id="linkMan" name="linkMan"  lay-verify="required"\n' +
+                '                   placeholder="请输入联系人" value="">\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '\n' +
+                '    <div class="layui-form-item layui-row layui-col-xs12">\n' +
+                '        <label class="layui-form-label">联系电话</label>\n' +
+                '        <div class="layui-input-block">\n' +
+                '            <input type="text" class="layui-input"\n' +
+                '                   lay-verify="phone" name="linkPhone" id="phone" placeholder="请输入联系电话" value="">\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '    <div class="layui-form-item layui-row layui-col-xs12">\n' +
+                '        <label class="layui-form-label">概要</label>\n' +
+                '        <div class="layui-input-block">\n' +
+                '            <input type="text" class="layui-input"\n' +
+                '                   name="overview"  id="overview" placeholder="请输入概要" value="">\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '    <div class="layui-form-item layui-row layui-col-xs12">\n' +
+                '        <label class="layui-form-label">成功几率(%)</label>\n' +
+                '        <div class="layui-input-block">\n' +
+                '            <input type="text" class="layui-input"\n' +
+                '                   id="cgjl" name="cgjl" placeholder="请输入成功几率" value="">\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '    <div class="layui-form-item layui-row layui-col-xs12">\n' +
+                '        <label class="layui-form-label">机会描述</label>\n' +
+                '        <div class="layui-input-block">\n' +
+                '            <textarea placeholder="请输入机会描述信息" name="description" id="description" class="layui-textarea"></textarea>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '    <div class="layui-form-item layui-row layui-col-xs12">\n' +
+                '        <label class="layui-form-label">指派给</label>\n' +
+                '        <div class="layui-input-block">\n' +
+                '            <select name="assignMan" id="assignMan">\n' +
+                '                <option id="option" value="" >请选择</option>\n' +
+                '            </select>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '    <br/>\n' +
+                '</form>',
+            btn: ['确定', '取消'],
+            yes: function(index, layero){
+                //按钮【按钮一】的回调
+                $.ajax({
+                    type:'post',
+                    url:ctx+'/sale_chance/save',
+                    dataType:'json',
+                    data:{
+                        chanceSource:$('#chanceSource').val(),
+                        customerName:$('#customerName').val(),
+                        cgjl:$('#cgjl').val(),
+                        linkMan:$('#linkMan').val(),
+                        linkPhone:$('#phone').val(),
+                        overview:$('#overview').val(),
+                        description:$('#description').val(),
+                        assignMan:$("#assignMan").find("option:selected").attr("value")
+                    },
+                    success:function (msg) {
+                        var code = msg.code;
+                        if(code === 200){
+                            layer.msg('添加成功',{
+                                time:1000
+                            },function () {
+                                window.location.href = ctx+'/sale_chance/index';
+                            })
+                        }else{
+                            layer.msg(msg.msg)
+                        }
+                    }
+                });
+            },
+            cancel: function(){
+
+            }
+
+        })
+
+
+        $.ajax({
+            type:'post',
+            data:{},
+            dataType:'json',
+            url:ctx+'/user/list',
+            success:function (msg) {
+                var code = msg.code;
+                if(code === 0){
+                    var data = msg.data;
+                    var length = data.length;
+                    for (var i = 0; i < length; i++) {
+                        $('#assignMan').append('<option value="'+data[i].id+'" >'+data[i].trueName+'</option>')
+                    }
+                    form.render('select');
+                }else{
+                    layer.msg(msg.msg);
+                }
+            }
+        });
+    }
+
+
+
+
 })
+

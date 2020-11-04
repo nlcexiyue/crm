@@ -3,8 +3,11 @@ layui.use(['form','layer','jquery'],function () {
         layer = layui.layer,
         $ = layui.jquery;
 
-    $('#formCancel').on('click',function () {
-        window.history.back(-1);
+    $('#formCancel').on('click',function (e) {
+        console.log(e);
+        // e.stopPropagation();
+        // document.getElementById('iframe id').contentWindow.history.back();
+        // window.location.href = ctx + '/sale_chance/index';
     })
 
 
