@@ -7,6 +7,8 @@ public class CusDevPlanQuery extends BaseQuery {
     // 营销机会id
     private Integer sid;
 
+
+
     public Integer getSid() {
         return sid;
     }
