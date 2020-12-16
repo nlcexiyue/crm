@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
 public class QueueListener {
     //destination监听的目标
     @JmsListener(destination = "publish.queue",containerFactory = "jmsListenerContainerFactoryQueue")
-    @SendTo("out.queue")
+//    @SendTo("out.queue")
     //sendTo会将此方法返回的数据，写入到queue:out.queue中去
-    public String receive(String text){
+    public void receive(String text){
         System.out.println("QueueListener: consumer-a 收到一条信息: " + text);
-        return "consumer-a received 返回到out.queue: " + text;
+//        return "consumer-a received 返回到out.queue: " + text;
     }
 }

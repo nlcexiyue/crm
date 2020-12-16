@@ -1,6 +1,8 @@
 package com.qiangqiang.NoBoot.Queue;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.ActiveMQMessageProducer;
+import org.apache.activemq.AsyncCallback;
 
 import javax.jms.*;
 
@@ -19,6 +21,9 @@ public class QueueProducer {
     public static void main(String[] args) throws JMSException {
         // 创建连接工厂
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(ACTIVEMQ_URL);
+
+        //开启异步投递
+        activeMQConnectionFactory.setUseAsyncSend(true);
         // 创建连接
         Connection connection = activeMQConnectionFactory.createConnection();
         // 打开连接
@@ -28,7 +33,7 @@ public class QueueProducer {
         // 创建队列目标,并标识队列名称，消费者根据队列名称接收数据
         Destination destination = session.createQueue("myQueue");
         // 创建一个生产者
-        MessageProducer producer = session.createProducer(destination);
+        ActiveMQMessageProducer producer = (ActiveMQMessageProducer) session.createProducer(destination);
         //设置当前发动的所有消息的持久性，这里是对生产者进行持久
         producer.setDeliveryMode(DeliveryMode.PERSISTENT);
         // 向队列推送10个文本消息数据
@@ -52,7 +57,17 @@ public class QueueProducer {
             }
 
             //发送消息
-            producer.send(message);
+            producer.send(message, new AsyncCallback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onException(JMSException exception) {
+
+                }
+            });
             //在本地打印消息
             System.out.println("已发送的消息：" + message.getText());
         }

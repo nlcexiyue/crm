@@ -1,6 +1,7 @@
 package com.qiangqiang.NoBoot.Topic;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.AsyncCallback;
 
 import javax.jms.*;
 
@@ -19,6 +20,7 @@ public class TopicProducer {
     public static void main(String[] args) throws JMSException {
         // 创建连接工厂
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(ACTIVEMQ_URL);
+
         // 创建连接
         Connection connection = activeMQConnectionFactory.createConnection();
         // 打开连接
