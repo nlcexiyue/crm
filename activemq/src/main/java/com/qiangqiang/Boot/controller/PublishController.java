@@ -1,18 +1,22 @@
 package com.qiangqiang.Boot.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.ActiveMQMessageProducer;
 import org.apache.activemq.AsyncCallback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
+import org.springframework.http.MediaType;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.jms.*;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -39,8 +43,11 @@ public class PublishController {
     private ActiveMQConnectionFactory connectionFactory;
 
 
-    @RequestMapping("/queue")
-    public String queue() throws JMSException {
+    @PostMapping(value = "/queue")
+    public String queue(HttpServletRequest request ,@RequestBody Book book) throws JMSException {
+        System.out.println(book);
+        String msg1 = book.getMsg();
+        System.out.println(msg1);
 
         Connection connection = connectionFactory.createConnection();
         connection.start();

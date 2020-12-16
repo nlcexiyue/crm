@@ -8,9 +8,9 @@
         <version>2.2.2.RELEASE</version>
     </parent>
     <groupId>com.qiangqiang</groupId>
-    <artifactId>crm</artifactId>
+    <artifactId>root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>crm</name>
+    <name>root</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
