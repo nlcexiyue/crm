@@ -21,7 +21,7 @@ public class ZookeeperDemo {
 
     private static ZkClient zkClient = null;
 
-    private static final String SERVERSTRING = "192.168.200.100:2181";
+    private static final String SERVERSTRING = "192.168.200.111:2181";
 
     static{
         zkClient = new ZkClient(SERVERSTRING,1000,10000);
