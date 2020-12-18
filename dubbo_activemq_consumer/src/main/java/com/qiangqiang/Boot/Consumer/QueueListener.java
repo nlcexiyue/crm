@@ -35,7 +35,8 @@ public class QueueListener {
      *
      */
     @JmsListener(destination = "news.queue",containerFactory = "jmsListenerContainerFactoryQueue")
-    @SendTo("out1.queue")
+    //这个是回调队列，相当于把接收到的消息再发到一个队列中，可以不写
+//    @SendTo("out1.queue")
     public void insertNewsLibrary(String text){
         String[] split = text.split(division);
         long id = SnowFlakeId.generateId();
