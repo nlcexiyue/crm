@@ -1,4 +1,4 @@
-package com.qiangqiang.Boot.Cors;
+package com.qiangqiang.Cors;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

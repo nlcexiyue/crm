@@ -30,12 +30,4 @@ public class SnowFlakeId {
         return defaultKeyGenerator.generateKey().longValue();
     }
 
-    public static void main(String[] args) {
-        for (int i = 0; i <10 ; i++) {
-            long l = SnowFlakeId.generateId();
-            System.out.println(l);
-        }
-
-
-    }
 }

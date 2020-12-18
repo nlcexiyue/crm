@@ -1,6 +1,7 @@
 package com.qiangqiang.service;
 
 import com.github.pagehelper.PageInfo;
+import com.qiangqiang.entity.ExplainResult;
 import com.qiangqiang.entity.NewsLibrary;
 
 import java.util.Date;

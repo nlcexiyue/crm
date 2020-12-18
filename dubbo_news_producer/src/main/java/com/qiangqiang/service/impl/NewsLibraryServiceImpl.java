@@ -1,6 +1,7 @@
 package com.qiangqiang.service.impl;
 
 import com.github.pagehelper.PageInfo;
+import com.qiangqiang.entity.ExplainResult;
 import com.qiangqiang.entity.NewsLibrary;
 import com.qiangqiang.mapper.NewsLibraryMapper;
 import com.qiangqiang.service.NewsLibiaryService;
@@ -54,13 +55,20 @@ public class NewsLibraryServiceImpl implements NewsLibiaryService {
         page = page * limit;
         List<NewsLibrary> newsLibraries = newsLibraryMapper.selectByPage(page, limit);
         PageInfo<NewsLibrary> pageInfo = new PageInfo<>(newsLibraries);
-        int count = newsLibraryMapper.selectCount();
+        ExplainResult explainResult = newsLibraryMapper.selectCount();
+        int count = explainResult.getRows();
         pageInfo.setTotal(count);
         return pageInfo;
     }
 
+    /**
+     * 使用explain来大致查找全表的总数据量，但是结果比count(0)的结果要小一点，不要求精确的情景下使用
+     * @return
+     */
     @Override
     public int selectCount() {
-        return newsLibraryMapper.selectCount();
+        ExplainResult explainResult = newsLibraryMapper.selectCount();
+        int rows = explainResult.getRows();
+        return rows;
     }
 }

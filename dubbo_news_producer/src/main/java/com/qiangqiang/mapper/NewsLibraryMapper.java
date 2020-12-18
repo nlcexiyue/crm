@@ -1,5 +1,6 @@
 package com.qiangqiang.mapper;
 
+import com.qiangqiang.entity.ExplainResult;
 import com.qiangqiang.entity.NewsLibrary;
 import org.apache.ibatis.annotations.Param;
 
@@ -45,5 +46,5 @@ public interface NewsLibraryMapper {
 
     List<NewsLibrary> selectByPage(@Param("page") int page, @Param("limit") int limit);
 
-    int selectCount();
+    ExplainResult selectCount();
 }
