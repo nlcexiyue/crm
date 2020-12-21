@@ -26,7 +26,13 @@ import static com.qiangqiang.Boot.controller.PublishController.division;
  */
 @Component
 public class QueueListener {
-    @Reference(timeout = 60000,version = "1.0.0")
+    //远程引用的时候这里有启动时检查
+    //远程引用的本地存根stub，在远程调用出错的情况下，直接执行本地的NewsLibraryServiceImpl1中的方法来获取默认值
+    @Reference(timeout = 60000 ,
+            check = true ,
+            retries = 1,
+            version = "*" ,
+            stub = "com.qiangqiang.Boot.Consumer.NewsLibraryServiceImpl1")
     private NewsLibiaryService newsLibiaryService;
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

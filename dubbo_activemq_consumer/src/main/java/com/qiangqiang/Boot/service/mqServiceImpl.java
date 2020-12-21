@@ -21,7 +21,7 @@ import java.util.List;
 @Service(timeout = 60000)
 public class mqServiceImpl implements mqService{
 
-    @Reference(timeout = 60000,version = "1.0.0")
+    @Reference(timeout = 60000,retries = 1,version = "*",stub = "com.qiangqiang.Boot.Consumer.NewsLibraryServiceImpl1")
     private NewsLibiaryService newsLibiaryService;
 
     @Override

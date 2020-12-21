@@ -1,4 +1,4 @@
-package com.qiangqiang;
+package com.qiangqiang.NewsJsoup;
 
 import com.google.common.collect.Lists;
 import org.jsoup.Jsoup;

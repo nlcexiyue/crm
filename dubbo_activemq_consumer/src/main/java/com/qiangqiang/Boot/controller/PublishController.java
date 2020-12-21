@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,10 +65,10 @@ public class PublishController {
     public static final String division = "@_@";
 
     public final String worldNetName = "http://sputniknews.cn/";
-    public final String dateStart = "20141101";
-    public final String dateEnd = "20171231";
+    public final String dateStart = "20201219";
+    public final String dateEnd = "20201221";
 
-    @Reference(timeout = 60000, version = "1.0.0")
+    @Reference(timeout = 60000,retries = 1,version = "*",stub = "com.qiangqiang.Boot.Consumer.NewsLibraryServiceImpl1")
     private NewsLibiaryService newsLibiaryService;
 
     @RequestMapping("/page")

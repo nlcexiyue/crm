@@ -20,9 +20,8 @@ import java.util.List;
  * \* Description:
  * \
  */
-//retries重试
-@Service(timeout = 60000,retries = 1,version = "1.0.0")
-public class NewsLibraryServiceImpl implements NewsLibiaryService {
+@Service(timeout = 60000,retries = 1,version = "2.0.0")
+public class NewsLibraryServiceImpl1 implements NewsLibiaryService {
 
     @Autowired
     private NewsLibraryMapper newsLibraryMapper;
@@ -58,7 +57,7 @@ public class NewsLibraryServiceImpl implements NewsLibiaryService {
         ExplainResult explainResult = newsLibraryMapper.selectCount();
         int count = explainResult.getRows();
         pageInfo.setTotal(count);
-        System.out.println("1.0.0");
+        System.out.println("2.0.0");
         return pageInfo;
     }
 

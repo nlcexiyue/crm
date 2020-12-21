@@ -1,4 +1,4 @@
-package com.qiangqiang;
+package com.qiangqiang.NewsJsoup;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

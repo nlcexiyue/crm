@@ -1,12 +1,13 @@
-package com.qiangqiang.service.impl;
+package com.qiangqiang.Boot.Consumer;
 
 import com.github.pagehelper.PageInfo;
 import com.qiangqiang.entity.ExplainResult;
 import com.qiangqiang.entity.NewsLibrary;
 import com.qiangqiang.mapper.NewsLibraryMapper;
 import com.qiangqiang.service.NewsLibiaryService;
-import org.apache.dubbo.config.annotation.Service;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
@@ -20,12 +21,15 @@ import java.util.List;
  * \* Description:
  * \
  */
-//retries重试
-@Service(timeout = 60000,retries = 1,version = "1.0.0")
-public class NewsLibraryServiceImpl implements NewsLibiaryService {
+//本地存根的方法，要写构造函数
+public class NewsLibraryServiceImpl1 implements NewsLibiaryService {
 
-    @Autowired
-    private NewsLibraryMapper newsLibraryMapper;
+    private final NewsLibiaryService newsLibiaryService;
+
+    // 构造函数传入真正的远程代理对象
+    public NewsLibraryServiceImpl1(NewsLibiaryService newsLibiaryService){
+        this.newsLibiaryService = newsLibiaryService;
+    }
 
     @Override
     public int deleteByPrimaryKey(String id) {
@@ -37,7 +41,8 @@ public class NewsLibraryServiceImpl implements NewsLibiaryService {
                       String newsTitle,
                       String newsContent,
                       Date includeTime) {
-        return newsLibraryMapper.insert(id, newsTitle, newsContent, includeTime);
+        System.out.println("报错了");
+        return 1;
     }
 
     @Override
@@ -53,12 +58,12 @@ public class NewsLibraryServiceImpl implements NewsLibiaryService {
     @Override
     public PageInfo<NewsLibrary> selectByPage(int page, int limit) {
         page = page * limit;
-        List<NewsLibrary> newsLibraries = newsLibraryMapper.selectByPage(page, limit);
-        PageInfo<NewsLibrary> pageInfo = new PageInfo<>(newsLibraries);
-        ExplainResult explainResult = newsLibraryMapper.selectCount();
-        int count = explainResult.getRows();
-        pageInfo.setTotal(count);
-        System.out.println("1.0.0");
+
+        PageInfo<NewsLibrary> pageInfo = new PageInfo<>();
+
+
+
+        System.out.println("2.0.0");
         return pageInfo;
     }
 
@@ -68,8 +73,7 @@ public class NewsLibraryServiceImpl implements NewsLibiaryService {
      */
     @Override
     public int selectCount() {
-        ExplainResult explainResult = newsLibraryMapper.selectCount();
-        int rows = explainResult.getRows();
-        return rows;
+        System.out.println("报错了");
+        return 1;
     }
 }
