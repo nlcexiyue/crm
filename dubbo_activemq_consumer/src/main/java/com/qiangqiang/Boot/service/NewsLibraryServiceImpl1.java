@@ -1,4 +1,4 @@
-package com.qiangqiang.Boot.Consumer;
+package com.qiangqiang.Boot.service;
 
 import com.github.pagehelper.PageInfo;
 import com.qiangqiang.entity.ExplainResult;

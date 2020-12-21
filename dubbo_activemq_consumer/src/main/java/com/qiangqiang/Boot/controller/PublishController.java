@@ -68,7 +68,7 @@ public class PublishController {
     public final String dateStart = "20201219";
     public final String dateEnd = "20201221";
 
-    @Reference(timeout = 60000,retries = 1,version = "*",stub = "com.qiangqiang.Boot.Consumer.NewsLibraryServiceImpl1")
+    @Reference(timeout = 60000,retries = 1,version = "*",stub = "com.qiangqiang.Boot.service.NewsLibraryServiceImpl1")
     private NewsLibiaryService newsLibiaryService;
 
     @RequestMapping("/page")

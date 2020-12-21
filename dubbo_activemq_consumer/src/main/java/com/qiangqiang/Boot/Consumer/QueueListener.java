@@ -1,5 +1,6 @@
 package com.qiangqiang.Boot.Consumer;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.qiangqiang.service.NewsLibiaryService;
 import com.qiangqiang.tool.SnowFlakeId;
 import org.apache.dubbo.config.annotation.Reference;
@@ -32,7 +33,7 @@ public class QueueListener {
             check = true ,
             retries = 1,
             version = "*" ,
-            stub = "com.qiangqiang.Boot.Consumer.NewsLibraryServiceImpl1")
+            stub = "com.qiangqiang.Boot.service.NewsLibraryServiceImpl1")
     private NewsLibiaryService newsLibiaryService;
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -43,6 +44,8 @@ public class QueueListener {
     @JmsListener(destination = "news.queue",containerFactory = "jmsListenerContainerFactoryQueue")
     //这个是回调队列，相当于把接收到的消息再发到一个队列中，可以不写
 //    @SendTo("out1.queue")
+    //fallbackMethod为一个降级方法，参数都要和方法一样
+//    @HystrixCommand(fallbackMethod = "")
     public void insertNewsLibrary(String text){
         String[] split = text.split(division);
         long id = SnowFlakeId.generateId();

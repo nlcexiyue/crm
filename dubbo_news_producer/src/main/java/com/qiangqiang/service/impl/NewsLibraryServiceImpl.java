@@ -1,6 +1,7 @@
 package com.qiangqiang.service.impl;
 
 import com.github.pagehelper.PageInfo;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.qiangqiang.entity.ExplainResult;
 import com.qiangqiang.entity.NewsLibrary;
 import com.qiangqiang.mapper.NewsLibraryMapper;
@@ -50,7 +51,9 @@ public class NewsLibraryServiceImpl implements NewsLibiaryService {
         return 0;
     }
 
+    //在dubbo的提供者上增加@HystrixConmand配置，这样调用就会经过Hystrix代理
     @Override
+    @HystrixCommand
     public PageInfo<NewsLibrary> selectByPage(int page, int limit) {
         page = page * limit;
         List<NewsLibrary> newsLibraries = newsLibraryMapper.selectByPage(page, limit);
