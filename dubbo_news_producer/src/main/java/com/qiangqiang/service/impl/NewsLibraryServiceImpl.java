@@ -1,7 +1,6 @@
 package com.qiangqiang.service.impl;
 
 import com.github.pagehelper.PageInfo;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.qiangqiang.entity.ExplainResult;
 import com.qiangqiang.entity.NewsLibrary;
 import com.qiangqiang.mapper.NewsLibraryMapper;
@@ -22,7 +21,7 @@ import java.util.List;
  * \
  */
 //retries重试
-@Service(timeout = 60000,retries = 1,version = "1.0.0")
+@Service(timeout = 60000, retries = 1, version = "1.0.0")
 public class NewsLibraryServiceImpl implements NewsLibiaryService {
 
     @Autowired
@@ -43,7 +42,7 @@ public class NewsLibraryServiceImpl implements NewsLibiaryService {
 
     @Override
     public List<NewsLibrary> selectAll() {
-        return null;
+        return newsLibraryMapper.selectAll();
     }
 
     @Override
@@ -53,7 +52,6 @@ public class NewsLibraryServiceImpl implements NewsLibiaryService {
 
     //在dubbo的提供者上增加@HystrixConmand配置，这样调用就会经过Hystrix代理
     @Override
-    @HystrixCommand
     public PageInfo<NewsLibrary> selectByPage(int page, int limit) {
         page = page * limit;
         List<NewsLibrary> newsLibraries = newsLibraryMapper.selectByPage(page, limit);
@@ -67,6 +65,7 @@ public class NewsLibraryServiceImpl implements NewsLibiaryService {
 
     /**
      * 使用explain来大致查找全表的总数据量，但是结果比count(0)的结果要小一点，不要求精确的情景下使用
+     *
      * @return
      */
     @Override

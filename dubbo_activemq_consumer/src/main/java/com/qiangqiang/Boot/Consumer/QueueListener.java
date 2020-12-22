@@ -1,9 +1,12 @@
 package com.qiangqiang.Boot.Consumer;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.alibaba.fastjson.JSON;
+import com.qiangqiang.entity.NewsLibrary;
 import com.qiangqiang.service.NewsLibiaryService;
+import com.qiangqiang.service.NewsLibraryService;
 import com.qiangqiang.tool.SnowFlakeId;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
@@ -36,6 +39,9 @@ public class QueueListener {
             stub = "com.qiangqiang.Boot.service.NewsLibraryServiceImpl1")
     private NewsLibiaryService newsLibiaryService;
 
+    @Autowired
+    private NewsLibraryService newsLibiaryService1;
+
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     /**
      * 监听新闻队列中的消息
@@ -55,6 +61,18 @@ public class QueueListener {
         Date date = Date.from(instant);
         int insert = newsLibiaryService.insert(id, split[0], split[1], date);
         System.out.println("");
+    }
+
+
+    @JmsListener(destination = "elasticSearch.queue",containerFactory = "jmsListenerContainerFactoryQueue")
+    //这个是回调队列，相当于把接收到的消息再发到一个队列中，可以不写
+//    @SendTo("out1.queue")
+    //fallbackMethod为一个降级方法，参数都要和方法一样
+//    @HystrixCommand(fallbackMethod = "")
+    public void insertToElasticSearchNewsLibrary(String text){
+        NewsLibrary newsLibrary = JSON.parseObject(text, NewsLibrary.class);
+        newsLibiaryService1.save(newsLibrary);
+
     }
 
 

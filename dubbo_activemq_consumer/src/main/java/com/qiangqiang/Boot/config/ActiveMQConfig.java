@@ -31,6 +31,9 @@ public class ActiveMQConfig {
     @Value("${topicName}")
     private String topicName;
 
+    @Value("${elasticSearchQueueName}")
+    public String elasticSearchQueueName;
+
     @Value("${queueJsoupNewsName}")
     private String queueJsoupNewsName;
 
@@ -55,6 +58,7 @@ public class ActiveMQConfig {
     public Queue queue(){
         return new ActiveMQQueue(queueName);
     }
+
 
     //初始化主题
     @Bean
@@ -84,6 +88,7 @@ public class ActiveMQConfig {
         //这里开启的是异步投递，消息不阻塞，生产者会认为所有send的消息都被成功发送到MQ了，此时如果MQ突然宕机，生产者端内存中尚未发送至MQ的消息就会丢失
         //所以正确的异步发送方法是需要接受回调函数的
         activeMQConnectionFactory.setUseAsyncSend(true);
+
         return activeMQConnectionFactory;
     }
 

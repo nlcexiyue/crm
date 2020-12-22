@@ -1,5 +1,7 @@
 package com.qiangqiang.Boot.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.qiangqiang.entity.NewsLibrary;
@@ -50,6 +52,9 @@ public class PublishController {
     private Queue queue;
 
     @Autowired
+    private Queue elasticSearchQueue;
+
+    @Autowired
     private Topic topic;
     @Autowired
     private Queue newsQueue;
@@ -68,8 +73,11 @@ public class PublishController {
     public final String dateStart = "20201219";
     public final String dateEnd = "20201221";
 
-    @Reference(timeout = 60000,retries = 1,version = "*",stub = "com.qiangqiang.Boot.service.NewsLibraryServiceImpl1")
+    @Reference(timeout = 60000, retries = 1, version = "*", stub = "com.qiangqiang.Boot.service.NewsLibraryServiceImpl1")
     private NewsLibiaryService newsLibiaryService;
+
+
+
 
     @RequestMapping("/page")
     public PageInfo getPageNews(int page, int limit) {

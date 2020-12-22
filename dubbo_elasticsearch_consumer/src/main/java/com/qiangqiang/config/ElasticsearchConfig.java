@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -18,6 +19,7 @@ import org.springframework.data.elasticsearch.client.RestClients;
  * \
  */
 @Configuration
+@EnableElasticsearchRepositories(basePackages = "com.qiangqiang")
 public class ElasticsearchConfig {
     @Value("${elasticsearchHost}")
     public String elasticsearchHost;
