@@ -5,10 +5,10 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.realm.AuthenticatingRealm;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,14 +24,17 @@ import java.util.Set;
  */
 public class MyRealm extends AuthorizingRealm {
 
+//    @Autowired
+//    private HashedCredentialsMatcher hashedCredentialsMatcher;
+
     //构造方法中加密,要是不写构造方法,就用shiro.ini中的加密配置
     public MyRealm() {
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        //指定加密算法
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");
-        //指定散列次数
-        hashedCredentialsMatcher.setHashIterations(2);
-        this.setCredentialsMatcher(hashedCredentialsMatcher);
+//        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+//        //指定加密算法
+//        hashedCredentialsMatcher.setHashAlgorithmName("md5");
+//        //指定散列次数
+//        hashedCredentialsMatcher.setHashIterations(2);
+//        this.setCredentialsMatcher(hashedCredentialsMatcher);
 
 
     }

@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.qiangqiang</groupId>
-    <artifactId>dubbo_shiro_md5</artifactId>
+    <artifactId>dubbo_shiro_boot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>dubbo_shiro_md5</name>
+    <name>dubbo_shiro_boot</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -19,15 +19,34 @@
     </properties>
 
     <dependencies>
+
+
+        <!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-all -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-all</artifactId>
+            <version>1.5.3</version>
+            <type>pom</type>
         </dependency>
+
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <!-- 排除自带的logback依赖 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
