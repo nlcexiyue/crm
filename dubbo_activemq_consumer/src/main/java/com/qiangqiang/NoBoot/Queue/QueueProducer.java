@@ -48,7 +48,7 @@ public class QueueProducer {
                 message.setJMSDeliveryMode(DeliveryMode.NON_PERSISTENT);
                 //设置消息过期时间
                 message.setJMSExpiration(10000);
-                //设置优先级，0-9级，0-4是普通级别，5-9是加急级别，默认是4级
+                //设置优先级，0-9级，0-4是普通级别，layui-9是加急级别，默认是4级
                 message.setJMSPriority(9);
                 //设置messageId
                 message.setJMSMessageID("ssss");

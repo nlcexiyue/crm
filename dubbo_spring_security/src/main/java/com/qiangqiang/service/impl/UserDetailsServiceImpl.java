@@ -1,5 +1,7 @@
 package com.qiangqiang.service.impl;
 
+import com.qiangqiang.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -22,10 +24,21 @@ import java.util.List;
  */
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
+
+    @Autowired
+    private UserMapper userMapper;
+    //下面重新的方法里的username是页面表单中的传递过来的用户名
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         //设置账号有个role1的角色
         List<GrantedAuthority> role = AuthorityUtils.commaSeparatedStringToAuthorityList("role1");
-        return new User("user",new BCryptPasswordEncoder().encode("123456"),role);
+        com.qiangqiang.entity.User user = userMapper.selectByLoginName(username);
+        if(user == null){
+            throw new UsernameNotFoundException("用户名不存在");
+        }
+
+        //记录一下，这个地方的查询的密码是明文，并没有加密，那个凭证每次都不一样
+        return new User(user.getLoginname(),new BCryptPasswordEncoder().encode(user.getPwd()),role);
     }
 }

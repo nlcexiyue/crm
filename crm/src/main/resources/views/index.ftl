@@ -32,7 +32,7 @@
         </div>
     </div>
 </div>
-<script src="${ctx}/js/index1.js" charset="utf-8"></script>
+<script src="${ctx}/js/login.js" charset="utf-8"></script>
 
 </body>
 </html>

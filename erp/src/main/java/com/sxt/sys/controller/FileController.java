@@ -38,7 +38,7 @@ public class FileController {
 		String dirName=DateUtil.format(new Date(), "yyyy-MM-dd");
 		//4,构造文件夹
 		File dirFile=new File(AppFileUtils.UPLOAD_PATH,dirName);
-		//5,判断当前文件夹是否存在
+		//layui,判断当前文件夹是否存在
 		if(!dirFile.exists()) {
 			dirFile.mkdirs();//创建文件夹
 		}

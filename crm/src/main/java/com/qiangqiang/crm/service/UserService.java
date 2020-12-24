@@ -42,7 +42,7 @@ public class UserService extends BaseService<User,Integer> {
          * 4.用户存在
          *     校验密码
          *        密码错误 -->密码不正确   方法结束
-         * 5.密码正确
+         * layui.密码正确
          *     用户登录成功  返回用户信息
          */
         checkLoginParams(userName,userPwd);
