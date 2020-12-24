@@ -57,18 +57,18 @@ public class ShiroConfig {
         //注入安全管理器
         shiroFilterFactoryBean.setSecurityManager(defaultSecurityManager());
         //注入未登录的管理页面
-        shiroFilterFactoryBean.setLoginUrl("/index.html");
+//        shiroFilterFactoryBean.setLoginUrl("/index.html");
         //注入未授权的页面
-        shiroFilterFactoryBean.setUnauthorizedUrl("/login.html");
+//        shiroFilterFactoryBean.setUnauthorizedUrl("/login.html");
         //配置过滤器链
 
-
-        Map<String, String> map = new HashMap<>();
-        //登出
-        map.put("/logout", "logout");
-        //对所有用户认证
-        map.put("/**", "authc");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
+//
+//        Map<String, String> map = new HashMap<>();
+//        //登出
+//        map.put("/logout", "logout");
+//        //对所有用户认证
+//        map.put("/**", "authc");
+//        shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
     }
 
