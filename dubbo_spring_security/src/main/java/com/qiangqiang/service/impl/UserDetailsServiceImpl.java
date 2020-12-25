@@ -31,8 +31,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
+
         //设置账号有个role1的角色
-        List<GrantedAuthority> role = AuthorityUtils.commaSeparatedStringToAuthorityList("role1");
+        List<GrantedAuthority> role = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_admin");
+
+
+
         com.qiangqiang.entity.User user = userMapper.selectByLoginName(username);
         if(user == null){
             throw new UsernameNotFoundException("用户名不存在");
