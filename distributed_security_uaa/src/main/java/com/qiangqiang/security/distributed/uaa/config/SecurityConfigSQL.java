@@ -42,7 +42,7 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
     }
 
 
-    //自定义配置登录用户,可查询出用户.
+    //自定义配置登录用户,可查询出用户
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
