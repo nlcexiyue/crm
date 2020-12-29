@@ -29,7 +29,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
                 .withClient("c1")   //client_id0
         .secret(new BCryptPasswordEncoder().encode("secret"))   //客户端秘钥
         .resourceIds("res1","res2")    //可以访问的资源列表
-        .authorizedGrantTypes(
+        .authorizedGrantTypes();       //授权的类型,有5种
     }
 
     @Override
