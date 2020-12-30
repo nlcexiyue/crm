@@ -66,17 +66,10 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        //退出登录的请求地址和退出成功后跳转的页面
-        http.logout().logoutUrl("/logout").logoutSuccessUrl("/page/main.html").permitAll();
-        //自定义403权限不足的页面
-        http.exceptionHandling().accessDeniedPage("/page/403.html");
-        //表单登录
-        http.formLogin()
-//                .loginPage("/page/login.html")    //登录页面设置
-//                .loginProcessingUrl("/login")   //登录访问的路径
-//                .defaultSuccessUrl("/page/main.html").permitAll()    //登录成功后,跳转路径
 
-                .and().authorizeRequests()      //开启登录选择认证
+        //表单登录
+        http
+                .authorizeRequests()      //开启登录选择认证
                 .antMatchers("/login*").permitAll()  //设置哪些路径不需要认证,这里也能放行静态资源
 //                .antMatchers("/hello").hasAuthority("ROLE_admin")    //这里是对hello这个方法做权限设置
                 .anyRequest().authenticated()         //表示剩余其他接口,登录之后就能访问

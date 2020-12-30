@@ -54,7 +54,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
         defaultTokenServices.setSupportRefreshToken(true);
         //令牌存储策略
         defaultTokenServices.setTokenStore(tokenStore);
-        //令牌默认有效期2小时
+        //令牌默认有效期2小时    //不到期不刷新
         defaultTokenServices.setAccessTokenValiditySeconds(7200);
         //刷新令牌默认有效期3天
         defaultTokenServices.setRefreshTokenValiditySeconds(259200);
@@ -107,7 +107,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
 
     }
-
+//6ba93901-4bee-47dc-96eb-51bf9d600fc1
     //http://localhost:53020/oauth/authorize?client_id=c1&response_type=code&scope=all&redirect_uri=https://www.baidu.com
-    //http://localhost:53020/oauth/token?client_id=c1&client_secret=secret&grant_type=authorization_code&code=ioGe42&redirect_uri=https://www.baidu.com
+    //http://localhost:53020/oauth/token?client_id=c1&client_secret=secret&grant_type=authorization_code&code=bJf8X2&redirect_uri=https://www.baidu.com
 }
