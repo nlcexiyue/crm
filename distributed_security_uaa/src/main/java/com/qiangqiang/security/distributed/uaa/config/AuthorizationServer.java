@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -36,8 +37,12 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
     //认证管理器
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManagerBean;
 
+    @Bean
+    public AuthorizationCodeServices authorizationCodeServices(){
+        return new InMemoryAuthorizationCodeServices();
+    }
 
     //配置令牌服务
     @Bean
@@ -86,7 +91,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
                 .authorizedGrantTypes("authorization_code", "password", "refresh_token", "implicit", "client_credentials")      //该client允许的授权的类型,有5种authorization_code,password,refresh_token,implicit,client_credentials
                 .scopes("all")  //允许授权的范围,可以看做是客户端的权限
                 .autoApprove(false)     //false表示跳转到授权的页面
-                .redirectUris("https://www.baidu.com");     //加上验证回调地址
+                .redirectUris("/page/main");     //加上验证回调地址
     }
 
 
@@ -95,10 +100,10 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-                .authenticationManager(authenticationManager)   //认证管理器,密码模式
+                .authenticationManager(authenticationManagerBean)   //认证管理器,密码模式
                 .authorizationCodeServices(authorizationCodeServices)   //授权码模式
                 .tokenServices(authorizationServerTokenServices())  //令牌管理模式,不管是谁都需要
-                .allowedTokenEndpointRequestMethods(HttpMethod.POST);   //端点允许post提交
+                .allowedTokenEndpointRequestMethods(HttpMethod.GET);   //端点允许post提交
 
 
     }

@@ -3,6 +3,7 @@ package com.qiangqiang.security.distributed.uaa.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -32,6 +33,12 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
+    //认证管理器
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws  Exception{
+        return super.authenticationManagerBean();
+    }
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
@@ -65,21 +72,21 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().accessDeniedPage("/page/403.html");
         //表单登录
         http.formLogin()
-                .loginPage("/page/login.html")    //登录页面设置
-                .loginProcessingUrl("/login")   //登录访问的路径
-                .defaultSuccessUrl("/page/main.html").permitAll()    //登录成功后,跳转路径
+//                .loginPage("/page/login.html")    //登录页面设置
+//                .loginProcessingUrl("/login")   //登录访问的路径
+//                .defaultSuccessUrl("/page/main.html").permitAll()    //登录成功后,跳转路径
 
                 .and().authorizeRequests()      //开启登录选择认证
-                .antMatchers("/log").permitAll()  //设置哪些路径不需要认证,这里也能放行静态资源
+                .antMatchers("/login*").permitAll()  //设置哪些路径不需要认证,这里也能放行静态资源
 //                .antMatchers("/hello").hasAuthority("ROLE_admin")    //这里是对hello这个方法做权限设置
                 .anyRequest().authenticated()         //表示剩余其他接口,登录之后就能访问
 
                 //开启记住我登录认证
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(60)   //设置有效时长
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService)
 
-//                .and().csrf().disable();                 //关闭csrf防护
+                .and().csrf().disable();                 //关闭csrf防护
 
 
     }
@@ -87,6 +94,6 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
     //这里是放行静态资源的
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/public/**");
+        web.ignoring().antMatchers("/public/**","/page/**");
     }
 }
