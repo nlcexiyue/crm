@@ -91,7 +91,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
 
     //AuthorizationServerEndpointsConfigurer这个对象的实例可以完成令牌服务以及令牌endpoint配置
-    //令牌访问端点
+    //令牌访问endpoints端点
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints

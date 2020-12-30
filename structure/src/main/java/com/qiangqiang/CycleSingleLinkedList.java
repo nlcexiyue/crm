@@ -1,8 +1,5 @@
 package com.qiangqiang;
 
-import java.util.LinkedList;
-import java.util.Stack;
-
 /**
  * \* Created with IntelliJ IDEA.
  * \* @author: xiyue
@@ -12,32 +9,73 @@ import java.util.Stack;
  * \* Description:
  * \
  */
-public class SingleLinkedList {
+public class CycleSingleLinkedList {
 
     public static void main(String[] args) {
-        SingleLinkedList singleLinkedList = new SingleLinkedList();
-        singleLinkedList.add("11");
-        singleLinkedList.add("22");
-        singleLinkedList.add("33");
-        singleLinkedList.add("44");
+        CycleSingleLinkedList singleLinkedList = new CycleSingleLinkedList();
+        singleLinkedList.add("1");
+        singleLinkedList.add("2");
+        singleLinkedList.add("3");
+        singleLinkedList.add("4");
+        singleLinkedList.add("5");
+        singleLinkedList.add("6");
+        singleLinkedList.add("7");
+        singleLinkedList.add("8");
+        singleLinkedList.add("9");
+        singleLinkedList.add("10");
+        Node headNode = singleLinkedList.headNode;
+        Node lastNode = singleLinkedList.lastNode;
+        int size = singleLinkedList.size;
 
-        singleLinkedList.add(0,"55555");
-//        for (int i = 0; i < singleLinkedList.size; i++) {
-//            System.out.println(singleLinkedList.get(i));
-//        }
-        System.out.println();
-
+        singleLinkedList.yuesefu(headNode,lastNode,size,2,3);
 
 
     }
 
+    /**
+     *
+     */
 
 
 
 
+    /**
+     *  约瑟夫问题
+     * @param headNode
+     * @param lastNode
+     * @param size
+     * @param start     从几号开始
+     * @param count     每次报数报几下
+     */
+    public  void yuesefu(Node headNode , Node lastNode , int size ,int start , int count){
+        if(headNode ==  null){
+            throw new NullPointerException();
+        }
+        if (size < 0 || start > size || count< 1){
+            throw new IllegalArgumentException();
+        }
+        //从几号开始,就把头和尾设置在哪里
+        for (int i = 0; i < start -1 ; i++) {
+            headNode = headNode.next;
+            lastNode = lastNode.next;
+        }
+        //循环报数
+        while(size != 0){
+            for (int i = 0; i < count -1; i++) {
+                headNode = headNode.next;
+                lastNode = lastNode.next;
+            }
+            System.out.println(headNode.data);
+            Node nextNode = headNode.next;
+            lastNode.next = nextNode;
+            headNode.next = null;
+            size--;
+            headNode = nextNode;
+        }
 
 
 
+    }
 
 
 
@@ -108,8 +146,12 @@ public class SingleLinkedList {
      * 根据序号删除元素
      */
     public void remove(int index){
+        if(index > size){
+            index = index % size;
+        }
+
         //1.判断序号是否合法
-        if (index < 0 || index >= size) {
+        if (index < 0 ) {
             throw new IndexOutOfBoundsException("索引越界");
         }
         //2.处理删除节点为首节点的情况
@@ -120,6 +162,8 @@ public class SingleLinkedList {
             headNode.next = null;
             //2.3设置nextNode为首节点
             headNode = nextNode;
+            //4设置lastNode的next指向headNode,环住
+            lastNode.next = headNode;
         }
         //3.处理删除节点为尾节点的情况
         else if(index == size- 1){
@@ -129,6 +173,8 @@ public class SingleLinkedList {
             preNode.next = null;
             //3.3设置单链表的尾节点
             lastNode = preNode;
+            //4设置lastNode的next指向headNode,环住
+            lastNode.next = headNode;
         }
         //4.处理删除节点在中间的情况
         else{
@@ -145,6 +191,10 @@ public class SingleLinkedList {
 
         //5.更新size 的值
         size--;
+        if(size == 0){
+            headNode = null;
+            lastNode = null;
+        }
 
 
     }
@@ -156,7 +206,7 @@ public class SingleLinkedList {
      */
     public Object get(int index) {
         //1.判断序号是否合法
-        if (index < 0 || index >= size) {
+        if (index < 0 ) {
             throw new IndexOutOfBoundsException("索引越界");
         }
         //2.根据序号获取对应的节点对象
@@ -165,6 +215,9 @@ public class SingleLinkedList {
         return data;
     }
 
+
+
+
     /**
      * 根据序号获得对应的节点对象
      *
@@ -172,6 +225,10 @@ public class SingleLinkedList {
      * @return 序号对应的节点对象
      */
     private Node node(int index) {
+        if(headNode == null){
+            throw new NullPointerException();
+        }
+        index = index % size;
         //1.定义一个临时节点来保存每一步遍历操作得到的节点
         Node tempNode = headNode;
         //2.循环获取index对应的节点对象
@@ -197,6 +254,8 @@ public class SingleLinkedList {
             headNode = node;
             //2.2把node节点设置为单链表的尾节点
             lastNode = node;
+            //4设置lastNode的next指向headNode,环住
+            lastNode.next = headNode;
         }
         //3.处理单链表不是空表的情况
         else {
@@ -204,8 +263,12 @@ public class SingleLinkedList {
             lastNode.next = node;
             //3.2更新lastNode的值
             lastNode = node;
+            //4设置lastNode的next指向headNode,环住
+            lastNode.next = headNode;
         }
-        //4.更新size的值
+        //4设置lastNode的next指向headNode,环住
+        lastNode.next = headNode;
+        //5.更新size的值
         size++;
     }
 

@@ -12,6 +12,7 @@ public class StructureApplication {
     public static void main(String[] args) {
         new ArrayList<>();
         new LinkedList<>();
+
         SpringApplication.run(StructureApplication.class, args);
     }
 
