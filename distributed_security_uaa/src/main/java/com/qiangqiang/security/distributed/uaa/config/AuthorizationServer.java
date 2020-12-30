@@ -87,11 +87,11 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
         clients.inMemory()
                 .withClient("c1")   //client_id0
                 .secret(new BCryptPasswordEncoder().encode("secret"))   //客户端秘钥
-                .resourceIds("res1", "res2")    //可以访问的资源列表
-                .authorizedGrantTypes("authorization_code", "password", "refresh_token", "implicit", "client_credentials")      //该client允许的授权的类型,有5种authorization_code,password,refresh_token,implicit,client_credentials
+                .resourceIds("res1")    //可以访问的资源列表
+                .authorizedGrantTypes("authorization_code","password","refresh_token","implicit","client_credentials")      //该client允许的授权的类型,有5种authorization_code,password,refresh_token,implicit,client_credentials
                 .scopes("all")  //允许授权的范围,可以看做是客户端的权限
                 .autoApprove(false)     //false表示跳转到授权的页面
-                .redirectUris("/page/main");     //加上验证回调地址
+                .redirectUris("https://www.baidu.com");     //加上验证回调地址
     }
 
 
@@ -107,4 +107,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
 
     }
+
+    //http://localhost:53020/oauth/authorize?client_id=c1&response_type=code&scope=all&redirect_uri=https://www.baidu.com
+    //http://localhost:53020/oauth/token?client_id=c1&client_secret=secret&grant_type=authorization_code&code=ioGe42&redirect_uri=https://www.baidu.com
 }

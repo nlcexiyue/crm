@@ -37,7 +37,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         List<GrantedAuthority> role = AuthorityUtils.commaSeparatedStringToAuthorityList("admin");
 
 
-        com.qiangqiang.security.distributed.uaa.entity.User user = userMapper.selectByLoginName(username);
+//        com.qiangqiang.security.distributed.uaa.entity.User user = userMapper.selectByLoginName(username);
+        com.qiangqiang.security.distributed.uaa.entity.User user = new com.qiangqiang.security.distributed.uaa.entity.User();
+        user.setLoginname("admin");
+        user.setPwd("admin");
         if(user == null){
             throw new UsernameNotFoundException("用户名不存在");
         }
