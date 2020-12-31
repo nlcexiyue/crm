@@ -15,9 +15,9 @@ public class ChoiceSort {
     public static void main(String[] args) {
         //选择排序
 //        int [] arr = {8,3,5,7,2,9,4,1};
-        int [] arr = new int[8];
+        int[] arr = new int[8];
         for (int i = 0; i < 8; i++) {
-            Random random=new Random();
+            Random random = new Random();
             arr[i] = random.nextInt(100);
         }
         int length = arr.length;
@@ -28,7 +28,7 @@ public class ChoiceSort {
             int min = i;
             for (int j = i; j < length; j++) {
 
-                if(arr[j] < arr[min]) {
+                if (arr[j] < arr[min]) {
                     min = j;
                 }
 
@@ -44,7 +44,6 @@ public class ChoiceSort {
         }
         System.out.println();
         System.out.println(a);
-
 
 
     }

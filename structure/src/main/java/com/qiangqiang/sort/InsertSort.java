@@ -15,9 +15,9 @@ public class InsertSort {
 
     //插入排序
     public static void main(String[] args) {
-        int [] arr = new int[8];
+        int[] arr = new int[8];
         for (int i = 0; i < 8; i++) {
-            Random random=new Random();
+            Random random = new Random();
             arr[i] = random.nextInt(100);
         }
         int length = arr.length;
@@ -25,11 +25,11 @@ public class InsertSort {
         int a = 0;
 
         for (int i = 1; i < length; i++) {
-            for (int j = i; j >0 ; j--) {
-                if(arr[j] < arr[j-1]){
+            for (int j = i; j > 0; j--) {
+                if (arr[j] < arr[j - 1]) {
                     int temp = arr[j];
-                    arr[j] = arr[j-1];
-                    arr[j-1] = temp;
+                    arr[j] = arr[j - 1];
+                    arr[j - 1] = temp;
                 }
                 a++;
             }

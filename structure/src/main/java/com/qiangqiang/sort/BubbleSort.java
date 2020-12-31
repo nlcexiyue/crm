@@ -1,6 +1,5 @@
 package com.qiangqiang.sort;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -16,21 +15,21 @@ public class BubbleSort {
     public static void main(String[] args) {
         //冒泡排序
 //        int [] arr = {8,3,5,7,2,9,4,1};
-        int [] arr = new int[8];
+        int[] arr = new int[8];
         for (int i = 0; i < 8; i++) {
-            Random random=new Random();
+            Random random = new Random();
             arr[i] = random.nextInt(100);
         }
         int length = arr.length;
         //算法交换元素的执行总数
         int a = 0;
         for (int i = 0; i < length; i++) {
-            for (int j = 0; j < length -1 - i; j++) {
-                if(arr[j] > arr[j+1]){
+            for (int j = 0; j < length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
                     int temp = arr[j];
-                    arr[j] = arr[j+1];
+                    arr[j] = arr[j + 1];
 
-                    arr[j+1] = temp;
+                    arr[j + 1] = temp;
 
                 }
                 a++;
