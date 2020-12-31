@@ -24,7 +24,7 @@ public class ShellSort {
         //算法交换元素的执行总数
         int a = 0;
 
-        //step步长
+        //step步长1
         for (int step = length / 2; step > 0; step /= 2) {
             for (int i = 1; i < length ; i ++) {
 
