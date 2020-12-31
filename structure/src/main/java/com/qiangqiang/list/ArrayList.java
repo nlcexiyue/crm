@@ -1,4 +1,4 @@
-package com.qiangqiang;
+package com.qiangqiang.list;
 
 import java.util.Arrays;
 

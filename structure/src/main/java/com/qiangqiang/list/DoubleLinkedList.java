@@ -1,4 +1,4 @@
-package com.qiangqiang;
+package com.qiangqiang.list;
 
 /**
  * \* Created with IntelliJ IDEA.

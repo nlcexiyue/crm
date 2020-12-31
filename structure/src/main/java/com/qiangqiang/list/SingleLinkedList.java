@@ -1,7 +1,4 @@
-package com.qiangqiang;
-
-import java.util.LinkedList;
-import java.util.Stack;
+package com.qiangqiang.list;
 
 /**
  * \* Created with IntelliJ IDEA.
