@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,6 +36,8 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     //认证管理器
+
+    @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws  Exception{
         return super.authenticationManagerBean();
@@ -68,9 +71,12 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
 
 
         //表单登录
-        http
-                .authorizeRequests()      //开启登录选择认证
-                .antMatchers("/login*").permitAll()  //设置哪些路径不需要认证,这里也能放行静态资源
+        http.formLogin()
+//                .loginPage("/page/login.html")    //登录页面设置
+//                .loginProcessingUrl("/login")   //登录访问的路径
+//                .defaultSuccessUrl("/page/main.html").permitAll()    //登录成功后,跳转路径
+                .and().authorizeRequests()      //开启登录选择认证
+                .antMatchers("/login").permitAll()  //设置哪些路径不需要认证,这里也能放行静态资源
 //                .antMatchers("/hello").hasAuthority("ROLE_admin")    //这里是对hello这个方法做权限设置
                 .anyRequest().authenticated()         //表示剩余其他接口,登录之后就能访问
 
@@ -78,7 +84,6 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(60)   //设置有效时长
                 .userDetailsService(userDetailsService)
-
                 .and().csrf().disable();                 //关闭csrf防护
 
 
