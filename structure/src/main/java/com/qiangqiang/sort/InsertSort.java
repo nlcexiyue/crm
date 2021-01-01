@@ -15,11 +15,12 @@ public class InsertSort {
 
     //插入排序
     public static void main(String[] args) {
-        int[] arr = new int[8];
-        for (int i = 0; i < 8; i++) {
+        int[] arr = new int[15];
+        for (int i = 0; i < 15; i++) {
             Random random = new Random();
             arr[i] = random.nextInt(100);
         }
+//        int [] arr = {8,3,5,7,2,9,4,1};
         int length = arr.length;
         //算法交换元素的执行总数
         int a = 0;
@@ -30,8 +31,9 @@ public class InsertSort {
                     int temp = arr[j];
                     arr[j] = arr[j - 1];
                     arr[j - 1] = temp;
+                    a++;
                 }
-                a++;
+
             }
 
 

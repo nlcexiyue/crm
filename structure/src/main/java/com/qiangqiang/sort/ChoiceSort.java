@@ -14,12 +14,13 @@ import java.util.Random;
 public class ChoiceSort {
     public static void main(String[] args) {
         //选择排序
-//        int [] arr = {8,3,5,7,2,9,4,1};
-        int[] arr = new int[8];
-        for (int i = 0; i < 8; i++) {
-            Random random = new Random();
-            arr[i] = random.nextInt(100);
-        }
+        int [] arr = {8,3,5,7,2,9,4,1};
+//        int[] arr = new int[8];
+//        for (int i = 0; i < 8; i++) {
+//            Random random = new Random();
+//            arr[i] = random.nextInt(100);
+//        }
+
         int length = arr.length;
         //算法交换元素的执行总数
         int a = 0;
@@ -33,11 +34,12 @@ public class ChoiceSort {
                 }
 
 
-                a++;
+
             }
             int temp = arr[i];
             arr[i] = arr[min];
             arr[min] = temp;
+            a++;
         }
         for (int i : arr) {
             System.out.print(i + ",");

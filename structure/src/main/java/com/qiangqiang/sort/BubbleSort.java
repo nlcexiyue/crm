@@ -15,8 +15,8 @@ public class BubbleSort {
     public static void main(String[] args) {
         //冒泡排序
 //        int [] arr = {8,3,5,7,2,9,4,1};
-        int[] arr = new int[8];
-        for (int i = 0; i < 8; i++) {
+        int[] arr = new int[15];
+        for (int i = 0; i < 15; i++) {
             Random random = new Random();
             arr[i] = random.nextInt(100);
         }
@@ -30,9 +30,9 @@ public class BubbleSort {
                     arr[j] = arr[j + 1];
 
                     arr[j + 1] = temp;
-
+                    a++;
                 }
-                a++;
+
             }
         }
         for (int i : arr) {
