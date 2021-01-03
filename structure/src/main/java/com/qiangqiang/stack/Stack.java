@@ -17,26 +17,26 @@ public class Stack<T> {
     private Node lastNode;
 
     //构造方法
-    public Stack(){
-        this.node = new Node(null,null);
+    public Stack() {
+        this.node = new Node(null, null);
         this.size = 0;
     }
 
     //判断当前栈中元素个数是否为0
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size == 0;
     }
 
 
     //获取栈中元素的个数
-    public int size(){
+    public int size() {
         return this.size;
     }
 
     //压栈    //放在单链表的首节点
-    public void push(T t){
+    public void push(T t) {
         //1.把需要添加的数封装成节点对象
-        Node node = new Node(t,null);
+        Node node = new Node(t, null);
         //2.处理单链表为空的情况
         if (headNode == null) {
             //2.1把node节点设置为单链表的首节点
@@ -56,7 +56,7 @@ public class Stack<T> {
 
 
     //弹栈
-    public T pop(){
+    public T pop() {
         T item = headNode.item;
         headNode = headNode.next;
         size--;
@@ -64,8 +64,7 @@ public class Stack<T> {
     }
 
 
-
-    private class Node{
+    private class Node {
         private T item;
         private Node next;
 
