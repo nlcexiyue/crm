@@ -1,6 +1,8 @@
 package com.qiangqiang;
 
 import org.activiti.engine.*;
+import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricActivityInstanceQuery;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
@@ -181,11 +183,83 @@ public class ActivitiTest {
      * 但是不会删除历史信息表中的数据
      */
     @Test
-    public void deleteDeploy(){
+    public void deleteDeploy() {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         RepositoryService repositoryService = processEngine.getRepositoryService();
         String deploymentId = "1";
         repositoryService.deleteDeployment(deploymentId);
+
+    }
+
+
+    /**
+     * 删除流程部署信息,关联删除,这样可以在流程已经开始的情况下,直接中断流程删除部署信息
+     */
+    @Test
+    public void deleteDeployBreak() {
+
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        String deploymentId = "1";
+        //这个方法就是关联删除的,在流程没有走完的情况下,也可以删除
+        repositoryService.deleteDeployment(deploymentId, true);
+    }
+
+
+    /**
+     * 下载资源文件
+     * 使用repositoryService进行辅助下载
+     */
+    @Test
+    public void downloadDeployment() {
+        //1.获取引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        //2.获取RepositoryService
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        //3.获取查询对象ProcessDefinitionQuery去查询出来部署id去关联下载
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
+                .processDefinitionKey("myEvection")
+                .singleResult();
+        //4.通过流程定义信息,获取部署id
+        String deploymentId = processDefinition.getDeploymentId();
+        //从流程定义表中获取png图片的目录和名字
+        String pngName = processDefinition.getDiagramResourceName();
+        String bpmnName = processDefinition.getResourceName();
+        //5.通过部署id去查询出来资源
+        InputStream pngInputStream = repositoryService.getResourceAsStream(deploymentId, pngName);
+        InputStream bpmnInputStream = repositoryService.getResourceAsStream(deploymentId, bpmnName);
+
+        //后边就是普通的下载代码了
+
+    }
+
+
+    /**
+     * 历史流程信息查看
+     */
+    @Test
+    public void findHistory() {
+        //查询actinst表
+        //1.获取引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        HistoryService historyService = processEngine.getHistoryService();
+        HistoricActivityInstanceQuery instanceQuery = historyService.createHistoricActivityInstanceQuery();
+        //这样就把2501的所有数据放在instanceQuery中了
+        instanceQuery.processInstanceId("2501");
+        //也可以根据这个来查询
+//        instanceQuery.processDefinitionId("myEvection:1:4");
+        //增加排序操作
+        instanceQuery.orderByHistoricActivityInstanceStartTime().asc();
+        //查询所有内容
+        List<HistoricActivityInstance> list = instanceQuery.list();
+
+        System.out.println("历史信息:"+list.size());
+        for (HistoricActivityInstance historicActivityInstance : list) {
+
+            System.out.println("历史信息:"+historicActivityInstance.getActivityId());
+            System.out.println("历史信息:"+historicActivityInstance.getActivityName());
+        }
+
 
 
     }

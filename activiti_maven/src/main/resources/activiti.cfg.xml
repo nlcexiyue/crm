@@ -22,7 +22,7 @@
     <!--数据库连接池的构造注入-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-        <property name="url" value="jdbc:mysql://192.168.2.177:3306/activiti?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=GMT%2B8"></property>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/activiti?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=GMT%2B8"></property>
         <property name="username" value="root"></property>
         <property name="password" value="root"></property>
         <property name="maxActive" value="30"></property>
