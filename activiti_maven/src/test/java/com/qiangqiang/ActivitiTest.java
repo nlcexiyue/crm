@@ -169,7 +169,23 @@ public class ActivitiTest {
             System.out.println("流程定义id:" + processDefinition.getId());
             System.out.println("流程定义名称:" + processDefinition.getName());
             System.out.println("流程定义的key:" + processDefinition.getKey());
+            System.out.println("流程部署id:" + processDefinition.getDeploymentId());
         }
+
+
+    }
+
+
+    /**
+     * 删除流程部署信息
+     * 但是不会删除历史信息表中的数据
+     */
+    @Test
+    public void deleteDeploy(){
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        String deploymentId = "1";
+        repositoryService.deleteDeployment(deploymentId);
 
 
     }
