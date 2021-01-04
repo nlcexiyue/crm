@@ -6,6 +6,9 @@
     <groupId>com.qiangqiang</groupId>
     <artifactId>t_qiangqiang_crm</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>activiti_maven</module>
+    </modules>
     <name>t_qiangqiang_crm</name>
     <description>Demo project for Spring Boot</description>
     <packaging>pom</packaging>
