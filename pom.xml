@@ -8,6 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>activiti_maven</module>
+        <module>activiti_spring</module>
     </modules>
     <name>t_qiangqiang_crm</name>
     <description>Demo project for Spring Boot</description>
