@@ -55,7 +55,7 @@ public class ActivitiTest {
         //2.获取runtimeService
         RuntimeService runtimeService = processEngine.getRuntimeService();
         //3.根据流程定义时候添加的id来启动流程实例
-        ProcessInstance instance = runtimeService.startProcessInstanceByKey("myEvection");
+        ProcessInstance instance = runtimeService.startProcessInstanceByKey("myProcess-listen");
         //4.输出内容
         System.out.println("流程定义id:" + instance.getProcessDefinitionId());
         System.out.println("流程实例id:" + instance.getId());
@@ -78,8 +78,9 @@ public class ActivitiTest {
         TaskService taskService = processEngine.getTaskService();
         //3.根据条件去流程的key和任务的负责人来查询任务
         List<Task> list = taskService.createTaskQuery()
-                .processDefinitionKey("myEvection")     //流程key
-                .taskAssignee("jack")               //流程负责人
+//                .processDefinitionKey("myEvection")     //流程key
+                .taskAssignee("jerry")               //流程负责人
+                .taskId("12502")                    //act_ru_task的表的主键id
                 .list();
 
         //4.输出
@@ -106,8 +107,9 @@ public class ActivitiTest {
 //        taskService.complete("7502");
         //获取jack对应的任务
         Task task = taskService.createTaskQuery()
-                .processDefinitionKey("myEvection")
-                .taskAssignee("rose")
+//                .processDefinitionKey("myEvection-uel")
+                .processDefinitionId("myProcess-listen:1:47503")
+                .taskAssignee("张三三")
                 .singleResult();
         String id = task.getId();
         System.out.println("流程实例id:" + task.getProcessInstanceId());
@@ -129,11 +131,8 @@ public class ActivitiTest {
         //2.获取repositoryService
         RepositoryService repositoryService = processEngine.getRepositoryService();
         //3.进行流程部署
-        URL resource = this.getClass().getClassLoader().getResource("bpmn/evection.zip");
-        System.out.println(resource.toString());
 
-
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("bpmn/evection.zip");
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("bpmn1/evection.zip");
         ZipInputStream zipInputStream = new ZipInputStream(inputStream);
 
         Deployment deploy = repositoryService.createDeployment()
@@ -200,7 +199,7 @@ public class ActivitiTest {
 
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         RepositoryService repositoryService = processEngine.getRepositoryService();
-        String deploymentId = "1";
+        String deploymentId = "107501";
         //这个方法就是关联删除的,在流程没有走完的情况下,也可以删除
         repositoryService.deleteDeployment(deploymentId, true);
     }
