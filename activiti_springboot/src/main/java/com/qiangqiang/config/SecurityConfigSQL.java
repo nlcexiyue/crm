@@ -1,5 +1,7 @@
 package com.qiangqiang.config;
 
+import com.qiangqiang.handler.MyAuthenticationFailureHandler;
+import com.qiangqiang.handler.MyAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +36,12 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
+    @Autowired
+    private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
@@ -74,8 +82,8 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/page/login.html")    //登录页面设置
                 .loginProcessingUrl("/login")   //登录访问的路径
-                .defaultSuccessUrl("/page/main.html").permitAll()    //登录成功后,跳转路径
-
+                .successHandler(myAuthenticationSuccessHandler)    //登录成功后,跳转路径
+                .failureHandler(myAuthenticationFailureHandler)
                 .and().authorizeRequests()      //开启登录选择认证
                 .antMatchers("/log").permitAll()  //设置哪些路径不需要认证,这里也能放行静态资源
 //                .antMatchers("/hello").hasAuthority("ROLE_admin")    //这里是对hello这个方法做权限设置
@@ -83,10 +91,10 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
 
                 //开启记住我登录认证
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(60)   //设置有效时长
-                .userDetailsService(userDetailsService);
+                .tokenValiditySeconds(60) //设置有效时长
 
-//                .and().csrf().disable();                 //关闭csrf防护
+
+                .and().csrf().disable();                 //关闭csrf防护
 
 
     }
