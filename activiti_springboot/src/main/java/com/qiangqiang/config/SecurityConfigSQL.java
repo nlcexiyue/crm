@@ -60,6 +60,11 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
     //自定义的验证页面
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //其他任何路径都需要管理员登录
+        http.authorizeRequests()
+                .antMatchers("/login.html")
+                .access("hasRole('ADMIN')");
+
 
         //退出登录的请求地址和退出成功后跳转的页面
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/page/main.html").permitAll();
@@ -90,5 +95,7 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/public/**");
+        web.ignoring().antMatchers("/page/**");
+        web.ignoring().antMatchers("/login.html");
     }
 }
