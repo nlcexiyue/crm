@@ -1,5 +1,7 @@
 package com.qiangqiang.config;
 
+import com.qiangqiang.handler.MyAuthenticationFailureHandler;
+import com.qiangqiang.handler.MyAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +38,10 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
+    @Autowired
+    private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
@@ -50,14 +55,14 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
     //自定义配置登录用户,可查询出用户
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     //注入的加密实现类,不写的话上面的那个BCryptPasswordEncoder类会报错找不到
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 
     //自定义的验证页面
@@ -77,8 +82,8 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/page/login.html")    //登录页面设置
                 .loginProcessingUrl("/login")   //登录访问的路径
-                .defaultSuccessUrl("/page/main.html").permitAll()    //登录成功后,跳转路径
-
+                .successHandler(myAuthenticationSuccessHandler)    //登录成功后,跳转路径
+                .failureHandler(myAuthenticationFailureHandler)
                 .and().authorizeRequests()      //开启登录选择认证
                 .antMatchers("/log").permitAll()  //设置哪些路径不需要认证,这里也能放行静态资源
 //                .antMatchers("/hello").hasAuthority("ROLE_admin")    //这里是对hello这个方法做权限设置
@@ -86,10 +91,10 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
 
                 //开启记住我登录认证
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(60)   //设置有效时长
-                .userDetailsService(userDetailsService);
+                .tokenValiditySeconds(60) //设置有效时长
 
-//                .and().csrf().disable();                 //关闭csrf防护
+
+                .and().csrf().disable();                 //关闭csrf防护
 
 
     }
@@ -99,6 +104,6 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/public/**");
         web.ignoring().antMatchers("/page/**");
-        web.ignoring().antMatchers("/page/login.html");
+        web.ignoring().antMatchers("/login.html");
     }
 }
