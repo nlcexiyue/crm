@@ -1,6 +1,7 @@
 package com.qiangqiang.controller;
 
 
+import com.qiangqiang.annotation.MyLog;
 import com.qiangqiang.util.SecurityUtil;
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.model.ProcessInstance;
@@ -42,7 +43,9 @@ public class ActivitiController {
      * 查询流程定义
      */
     @RequestMapping("/getProcess")
+    @MyLog
     public void getProcess(){
+        securityUtil.logInAs("zhangsan");
         //查询所有流程定义信息
         Page<ProcessDefinition> processDefinitionPage = processRuntime.processDefinitions(Pageable.of(0, 10));
         System.out.println("当前流程定义的数量："+processDefinitionPage.getTotalItems());

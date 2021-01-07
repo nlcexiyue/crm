@@ -35,6 +35,9 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
@@ -47,14 +50,14 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
     //自定义配置登录用户,可查询出用户
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     //注入的加密实现类,不写的话上面的那个BCryptPasswordEncoder类会报错找不到
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
 
     //自定义的验证页面
@@ -96,6 +99,6 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/public/**");
         web.ignoring().antMatchers("/page/**");
-        web.ignoring().antMatchers("/login.html");
+        web.ignoring().antMatchers("/page/login.html");
     }
 }
