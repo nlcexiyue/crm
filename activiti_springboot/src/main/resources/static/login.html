@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="/public/css/index.css" media="all" />
     <link rel="stylesheet" href="/public/layui/css/layui.css" media="all">
 
-    <meta name="_csrf" th:content="${_csrf.token}" />
-    <!-- 默认标题名称是X-CSRF-TOKEN  -->
-    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <!--<meta name="_csrf" th:content="${_csrf.token}" />-->
+    <!--&lt;!&ndash; 默认标题名称是X-CSRF-TOKEN  &ndash;&gt;-->
+    <!--<meta name="_csrf_header" th:content="${_csrf.headerName}" />-->
 </head>
 <body>
 <div class="layui-container">
@@ -22,11 +22,11 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-username" name="username"></label>
-                    <input type="text" name="username" lay-verify="required|account" placeholder="用户名或者邮箱" autocomplete="off" class="layui-input" >
+                    <input type="text" name="username" value="zhangsan" lay-verify="required|account" placeholder="用户名或者邮箱" autocomplete="off" class="layui-input" >
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-password" name="password"></label>
-                    <input type="password" name="password" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input" >
+                    <input type="password" name="password" value="password" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input" >
                 </div>
                 <div class="layui-form-item">
                     <input type="checkbox" name="remember-me" id="remember-me" value="true" lay-skin="primary" title="记住密码">
@@ -47,9 +47,7 @@
         var form = layui.form,
             layer = layui.layer,
             $ = layui.jquery;
-        window.$ = $;
-        token = $("meta[name='_csrf']").attr("content");
-        header = $("meta[name='_csrf_header']").attr("content");
+
         form.on('submit(login)',function (data) {
 
 
@@ -66,9 +64,6 @@
                     "username":field.username,
                     "password":field.password,
                     "remember-me":remember
-                },
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader(header, token);  //发送请求前将csrfToken设置到请求头中
                 },
                 url:"/login",
                 dataType:'json',

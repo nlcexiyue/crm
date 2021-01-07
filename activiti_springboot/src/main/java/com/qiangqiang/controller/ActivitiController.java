@@ -12,6 +12,8 @@ import org.activiti.api.runtime.shared.query.Pageable;
 import org.activiti.api.task.model.Task;
 import org.activiti.api.task.model.builders.TaskPayloadBuilder;
 import org.activiti.api.task.runtime.TaskRuntime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +30,10 @@ public class ActivitiController {
     @Autowired
     private SecurityUtil securityUtil;
 
+//    private Logger log = LoggerFactory.getLogger(this.getClass());
+static Logger log = LoggerFactory.getLogger(ActivitiController.class.getName());
+
+
     /**
      * 部署流程定义
      */
@@ -39,20 +45,33 @@ public class ActivitiController {
 
     }
 
+
+    public static void main(String[] args) {
+
+        log.error("当前流程定义的数量：");
+
+    }
+
     /**
      * 查询流程定义
      */
     @RequestMapping("/getProcess")
-    @MyLog
-    public void getProcess(){
+//    @MyLog(value = "查询流程定义")
+    public String getProcess(){
         securityUtil.logInAs("zhangsan");
         //查询所有流程定义信息
         Page<ProcessDefinition> processDefinitionPage = processRuntime.processDefinitions(Pageable.of(0, 10));
-        System.out.println("当前流程定义的数量："+processDefinitionPage.getTotalItems());
+//        System.out.println("当前流程定义的数量："+processDefinitionPage.getTotalItems());
+
         //获取流程信息
+        log.warn("当前流程定义的数量："+processDefinitionPage.getTotalItems());
         for (ProcessDefinition processDefinition:processDefinitionPage.getContent()) {
-            System.out.println("流程定义信息"+processDefinition);
+//            System.out.println("流程定义信息"+processDefinition);
+            log.warn("流程定义信息"+processDefinition);
+
+            return "流程定义信息"+processDefinition;
         }
+        return null;
     }
 
     /**
