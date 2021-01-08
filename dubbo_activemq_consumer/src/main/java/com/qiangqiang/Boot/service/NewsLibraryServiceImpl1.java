@@ -3,7 +3,7 @@ package com.qiangqiang.Boot.service;
 import com.github.pagehelper.PageInfo;
 import com.qiangqiang.entity.ExplainResult;
 import com.qiangqiang.entity.NewsLibrary;
-import com.qiangqiang.mapper.NewsLibraryMapper;
+
 import com.qiangqiang.service.NewsLibiaryService;
 
 import org.springframework.beans.factory.annotation.Autowired;

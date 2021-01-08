@@ -79,8 +79,8 @@ public class SecurityConfigSQL extends WebSecurityConfigurerAdapter {
 
                 //开启记住我登录认证
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(60)   //设置有效时长
-                .userDetailsService(userDetailsService);
+                .tokenValiditySeconds(60);   //设置有效时长
+//                .userDetailsService(userDetailsService);
 
 //                .and().csrf().disable();                 //关闭csrf防护
 

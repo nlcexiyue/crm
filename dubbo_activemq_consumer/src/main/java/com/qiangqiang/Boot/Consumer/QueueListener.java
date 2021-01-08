@@ -3,7 +3,7 @@ package com.qiangqiang.Boot.Consumer;
 import com.alibaba.fastjson.JSON;
 import com.qiangqiang.entity.NewsLibrary;
 import com.qiangqiang.service.NewsLibiaryService;
-import com.qiangqiang.service.NewsLibraryService;
+
 import com.qiangqiang.tool.SnowFlakeId;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +39,8 @@ public class QueueListener {
             stub = "com.qiangqiang.Boot.service.NewsLibraryServiceImpl1")
     private NewsLibiaryService newsLibiaryService;
 
-    @Autowired
-    private NewsLibraryService newsLibiaryService1;
+//    @Autowired
+//    private NewsLibraryService newsLibiaryService1;
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     /**
@@ -71,7 +71,7 @@ public class QueueListener {
 //    @HystrixCommand(fallbackMethod = "")
     public void insertToElasticSearchNewsLibrary(String text){
         NewsLibrary newsLibrary = JSON.parseObject(text, NewsLibrary.class);
-        newsLibiaryService1.save(newsLibrary);
+//        newsLibiaryService1.save(newsLibrary);
 
     }
 

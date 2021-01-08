@@ -108,6 +108,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
     }
 //fb704fb5-30a0-48b4-83ab-a4a5b521d263
+    //0767186f-4eba-4beb-a036-1848efbab9fb
     //http://localhost:53020/oauth/authorize?client_id=c1&response_type=code&scope=all&redirect_uri=https://www.baidu.com
-    //http://localhost:53020/oauth/token?client_id=c1&client_secret=secret&grant_type=authorization_code&code=PLRNmb&redirect_uri=https://www.baidu.com
+    //http://localhost:53020/oauth/token?client_id=c1&client_secret=secret&grant_type=authorization_code&code=XW9YqL&redirect_uri=https://www.baidu.com
 }

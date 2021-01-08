@@ -31,8 +31,8 @@ public class WorldNetNews {
     }
     //获取某个时间段中的所有的月份
     public static List<String> getYearDate() {
-        String dateStart="20180101";
-        String dateEnd="20201216";
+        String dateStart="20201216";
+        String dateEnd="20210107";
         SimpleDateFormat date=new SimpleDateFormat("yyyyMMdd");
         long startTime = 0;//start
         try {
