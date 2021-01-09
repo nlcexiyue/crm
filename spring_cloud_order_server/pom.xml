@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.qiangqiang</groupId>
-    <artifactId>spring_cloud_alibaba_consumer</artifactId>
+    <artifactId>spring_cloud_order_server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring_cloud_alibaba_consumer</name>
+    <name>spring_cloud_order_server</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -19,7 +19,6 @@
     </properties>
     <dependencyManagement>
         <dependencies>
-
             <!--springcloudalibaba-->
             <!--2.1.x版本可以与格里尼治的Springcloud对接-->
             <dependency>
@@ -37,37 +36,34 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+
+
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-loadbalancer &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-loadbalancer</artifactId>-->
+            <!--<version>2.2.1.RELEASE</version>-->
+        <!--</dependency>-->
+
+
+        <!--注册到注册中心的服务就用client-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-
-
-
-
-
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -79,6 +75,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
