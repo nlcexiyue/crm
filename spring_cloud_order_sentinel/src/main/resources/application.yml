@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 8006
 eureka:
   client:
     service-url:
@@ -11,8 +11,25 @@ eureka:
     lease-renewal-interval-in-seconds: 5    #心跳间隔
     lease-expiration-duration-in-seconds: 15
 spring:
+  cloud:
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
+      #动态配置规则，通过文件加载
+      datasource:
+        ds1:
+          file:
+            file: classpath:flowRule.json
+            data-type: json
+            rule-type: flow
   application:
     name: order-server
 product-server:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+#feign对sentinel的支持
+feign:
+  sentinel:
+    enabled: true
